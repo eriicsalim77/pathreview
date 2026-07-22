@@ -42,3 +42,13 @@ The tech detector reports JavaScript as the primary language for a Python projec
    Output shows primary_language JavaScript for a repo that is mostly Python.
 
 **Result:** 2 failed, 25 passed. The two failures are the vendored and build directory cases. Bug is real and I know where it lives.
+
+## Week 8: Solution plan
+
+**Reproduction commit:** https://github.com/eriicsalim77/pathreview/commit/e56e57b
+
+**PLAN.md:** https://github.com/eriicsalim77/pathreview/blob/fix/150-exclude-vendored-files-from-tech-detector/PLAN.md
+
+**Walkthrough video:** (add link here if recorded)
+
+Wrote the solution approach in PLAN.md using the planning framework. There are two bugs to fix in agent/tools/tech_detector.py. The skip patterns miss top level vendored folders because they require a leading slash. And the primary language is chosen alphabetically instead of by file count. Plan is to fix both, make the two failing tests pass, add a few more test cases, then run the linters and type checks.
