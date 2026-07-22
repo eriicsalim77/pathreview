@@ -43,12 +43,16 @@ The tech detector reports JavaScript as the primary language for a Python projec
 
 **Result:** 2 failed, 25 passed. The two failures are the vendored and build directory cases. Bug is real and I know where it lives.
 
-## Week 8: Solution plan
+## Week 8 — Reproduction & solution planning
 
-**Reproduction commit:** https://github.com/eriicsalim77/pathreview/commit/e56e57b
+**Reproduction commit link:** https://github.com/eriicsalim77/pathreview/commit/e56e57b
 
-**PLAN.md:** https://github.com/eriicsalim77/pathreview/blob/fix/150-exclude-vendored-files-from-tech-detector/PLAN.md
+**Reproduction summary:**
+I ran the existing tech detector unit tests and confirmed test_node_modules_excluded and test_build_directory_excluded both fail. Each one reports primary_language JavaScript for a Python project that vendors a few JS files, when it should report Python.
 
-**Walkthrough video:** (add link here if recorded)
+**PLAN.md link:** https://github.com/eriicsalim77/pathreview/blob/fix/150-exclude-vendored-files-from-tech-detector/PLAN.md
 
-Wrote the solution approach in PLAN.md using the planning framework. There are two bugs to fix in agent/tools/tech_detector.py. The skip patterns miss top level vendored folders because they require a leading slash. And the primary language is chosen alphabetically instead of by file count. Plan is to fix both, make the two failing tests pass, add a few more test cases, then run the linters and type checks.
+**Walkthrough video (recommended):** (add Loom link here if recorded)
+
+**Blockers or open questions:**
+Need to confirm how orchestrator.py builds the file list, mainly whether paths have a leading slash and forward or back slashes, so the skip fix handles the real input format. Also need to decide the tie break rule when two languages have the same file count.
